@@ -18,6 +18,7 @@ public:
 
     float getFeatureValue(int);
     void setFeatureValue(float, int);
+    void printRecord();
 };
 
 #endif

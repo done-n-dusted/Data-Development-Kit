@@ -19,6 +19,7 @@ public:
     Matrix(const Matrix&);
 
     void setData(int, int, float);
+    void printMatrix();
 };
 
 
