@@ -18,6 +18,8 @@ public:
 
     float getFeatureValue(int);
     void setFeatureValue(float, int);
+    int getSize();
+    float euclideanDistance(Record);
     void printRecord();
 };
 
