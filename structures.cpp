@@ -5,18 +5,26 @@
 
 Matrix::Matrix(int r, int c)
 {
+	cout << r << " " << c << endl;
 	nRows = r;
 	nColumns = c;
-
 	data = new float*[nRows];
-	for(int i = 0; i < nColumns; i++) new float[nColumns];
+	for(int i = 0; i < nRows; i++)
+	{
+		data[i] = new float [nColumns];
+		for(int j = 0; j < nColumns; j++)
+		{
+			// cout << ": " << i << " " << j << endl;
+			data[i][j] = 0;
+		}
+	}
 }
-
+/*
 Matrix::~Matrix()
 {
 	delete [] data;
 }
-
+*/
 Matrix::Matrix(const Matrix& m)
 {
 	nRows = m.nRows;
@@ -29,6 +37,11 @@ Matrix::Matrix(const Matrix& m)
 void Matrix::setData(int i, int j, float x)
 {
 	data[i][j] = x;
+}
+
+float Matrix::getData(int i, int j)
+{
+	return data[i][j];
 }
 
 void Matrix::printMatrix()
@@ -45,9 +58,9 @@ void Matrix::printMatrix()
 
 SquareMatrix::SquareMatrix(int n) : Matrix(n, n){};
 
-Record::Record(float *rec, int size)
+Record::Record(vector<string> rec)
 {
-	for(int i = 0; i < size; i++)
+	for(int i = 0; i < rec.size(); i++)
 	{
 		feature.push_back(rec[i]);
 	}
@@ -66,12 +79,32 @@ Record::Record(const Record& r)
 	}
 }
 
-float Record::getFeatureValue(int idx)
+void Record::setNormal(float f)
+{
+	normalVal = f;
+}
+
+float Record::getNormal()
+{
+	return normalVal;
+}
+
+float Record::getEuc()
+{
+	return eucDis;
+}
+
+void Record::setEuc(float ec)
+{
+	eucDis = ec;
+}
+
+string Record::getFeatureValue(int idx)
 {
 	return feature[idx];
 }
 
-void Record::setFeatureValue(float value, int idx)
+void Record::setFeatureValue(string value, int idx)
 {
 	feature[idx] = value;
 }
@@ -81,18 +114,21 @@ int Record::getSize()
 	return feature.size();
 }
 
-float Record::euclideanDistance(Record r)
+float Record::euclideanDistance(Record r, int thre)
 {
+	int count;
 	float res = 0;
 	float diff = 0;
-	for(int i = 0; i < feature.size(); i++)
+	for(int i = thre; i < feature.size(); i++)
 	{
-		diff = feature[i] - r.getFeatureValue(i);
+		// cout << "ED " << stof(feature[i]) << " " << stof(r.getFeatureValue(i)) << "\n";
+		diff = stof(feature[i]) - stof(r.getFeatureValue(i));
 		diff = pow(diff, 2);
 		res = res + diff;
 
 	}
 	res = pow(res, 0.5);
+	// cout << "EDF " << res << "\n";
 	return res;
 }
 
@@ -100,12 +136,7 @@ void Record::printRecord()
 {
 	for(int i = 0; i < feature.size(); i++)
 	{
-		cout << feature[i] << ", ";
+		cout << feature[i] << " ";
 	}
-	cout << endl;
-}
-
-float normalizeValue(float x, float min, float max)
-{
-    return ((x - min)/(max - min));
+	// cout << endl;
 }

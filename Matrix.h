@@ -9,17 +9,16 @@ class Matrix
 {
 private:
     int nRows, nColumns;
-
-protected:
     float **data;
 
 public:
     Matrix(int, int);
-    ~Matrix();
+    // ~Matrix();
     Matrix(const Matrix&);
 
     void setData(int, int, float);
     void printMatrix();
+    float getData(int, int);
 };
 
 

@@ -9,17 +9,23 @@ using namespace std;
 class Record
 {
 private:
-    vector<float> feature;
+    vector<string> feature;
+    float eucDis, normalVal;
 
 public:
-    Record(float *, int);
+    Record();
+    Record(vector<string>);
     ~Record();
     Record(const Record&);
 
-    float getFeatureValue(int);
-    void setFeatureValue(float, int);
+    string getFeatureValue(int);
+    void setFeatureValue(string, int);
+    void setNormal(float);
+    float getNormal();
+    float getEuc();
+    void setEuc(float);
     int getSize();
-    float euclideanDistance(Record);
+    float euclideanDistance(Record, int);
     void printRecord();
 };
 
