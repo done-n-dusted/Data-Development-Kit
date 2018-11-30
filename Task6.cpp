@@ -8,22 +8,24 @@
 
 using namespace std;
 
+//Setting feature vector//
 void Record::setFeatureVector(vector<double> _newFeatureVector){
     _featureVector = _newFeatureVector;
 }
-
+//Adding new record object to matrix//
 void Matrix::addRecord(Record r) {
     _data.push_back(r);
 }
 
-
+//Getting value of feature from matrix//
 double SymmetricMatrix::get_matrix_element(int i, int j){
     vector<double> feature = getData(i).getFeatureVector();
     return feature[j];
 }
-
+//Task6.....Basic minimum degree ordering algorithm//
 vector<int> basicMinDegreeOrdering(vector<int> newPermutedObject, vector<int> permutedObject, SymmetricMatrix &matrixInput){
-    if(permutedObject.size() == 1){
+   	//Recursion base case//
+ 		if(permutedObject.size() == 1){
         newPermutedObject.push_back(permutedObject[0]);
         return newPermutedObject;
     }
@@ -42,6 +44,7 @@ vector<int> basicMinDegreeOrdering(vector<int> newPermutedObject, vector<int> pe
     vector<double>:: iterator it;
     it = min_element(sumOfDegrees.begin(), sumOfDegrees.end());
     int in = it - sumOfDegrees.begin();
+		//Making submatrix//
     for(int i = 0; i < r; i++){
         if(i != in){
             Record record(r-1,0,r-1);
