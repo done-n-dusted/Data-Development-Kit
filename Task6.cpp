@@ -1,5 +1,5 @@
 #include "SymmetricMatrix.h"
-#include "Matrix.h"
+#include "DataMatrix.h"
 #include "Record.h"
 #include <iostream>
 #include <vector>
@@ -9,11 +9,11 @@
 using namespace std;
 
 //Setting feature vector//
-void Record::setFeatureVector(vector<double> _newFeatureVector){
-    _featureVector = _newFeatureVector;
+void Record::setFeatureVector(vector<double> newFeatureVector){
+    featureVector = newFeatureVector;
 }
 //Adding new record object to matrix//
-void Matrix::addRecord(Record r) {
+void DataMatrix::addRecord(Record r) {
     _data.push_back(r);
 }
 
@@ -47,7 +47,7 @@ vector<int> basicMinDegreeOrdering(vector<int> newPermutedObject, vector<int> pe
 		//Making submatrix//
     for(int i = 0; i < r; i++){
         if(i != in){
-            Record record(r-1,0,r-1);
+            Record record(r-1,r-1);
             vector<double> newFeature;
             vector<double> oldFeature = matrixInput.getData(i).getFeatureVector();
             for(int j = 0; j < r; j++){
@@ -59,6 +59,7 @@ vector<int> basicMinDegreeOrdering(vector<int> newPermutedObject, vector<int> pe
             matrix.addRecord(record);
         }
     }
+		//Proxy permutation vector//
     vector<int> proxyPermutation;
     for(int i = 0; i < r; i++){
 			if(i != in){
@@ -67,4 +68,7 @@ vector<int> basicMinDegreeOrdering(vector<int> newPermutedObject, vector<int> pe
 		}        
     newPermutedObject.push_back(permutedObject[in]);    
     return basicMinDegreeOrdering(newPermutedObject, proxyPermutation, matrix);
+}
+int main(){
+	return 0;
 }
