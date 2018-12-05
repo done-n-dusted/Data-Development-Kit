@@ -5,7 +5,6 @@
 
 Matrix::Matrix(int r, int c)
 {
-	cout << r << " " << c << endl;
 	nRows = r;
 	nColumns = c;
 	data = new float*[nRows];
@@ -14,17 +13,16 @@ Matrix::Matrix(int r, int c)
 		data[i] = new float [nColumns];
 		for(int j = 0; j < nColumns; j++)
 		{
-			// cout << ": " << i << " " << j << endl;
 			data[i][j] = 0;
 		}
 	}
 }
-/*
+
 Matrix::~Matrix()
 {
 	delete [] data;
 }
-*/
+
 Matrix::Matrix(const Matrix& m)
 {
 	nRows = m.nRows;
@@ -58,12 +56,33 @@ void Matrix::printMatrix()
 
 SquareMatrix::SquareMatrix(int n) : Matrix(n, n){};
 
+ostream& operator << (ostream& mos, Matrix &m)
+{
+	mos << m.nRows << "," << m.nColumns << endl;
+	for(int i = 0; i < m.nRows; i++)
+	{
+		for(int j = 0; j < m.nColumns; j++)
+		{
+			mos << m.data[i][j] << ",";
+		}
+		mos << endl;
+	}
+	return mos;
+}
+
 Record::Record(vector<string> rec)
 {
-	for(int i = 0; i < rec.size(); i++)
-	{
-		feature.push_back(rec[i]);
-	}
+	feature = rec;
+}
+
+void Record::setIndex(int i)
+{
+	idx = i;
+}
+
+int Record::getIndex() const
+{
+	return idx;
 }
 
 Record::~Record()
@@ -77,6 +96,8 @@ Record::Record(const Record& r)
 	{
 		feature.push_back(r.feature[i]);
 	}
+	normalVal = r.getNormal();
+	idx = r.getIndex();
 }
 
 void Record::setNormal(float f)
@@ -84,7 +105,7 @@ void Record::setNormal(float f)
 	normalVal = f;
 }
 
-float Record::getNormal()
+float Record::getNormal()	const
 {
 	return normalVal;
 }
@@ -121,22 +142,25 @@ float Record::euclideanDistance(Record r, int thre)
 	float diff = 0;
 	for(int i = thre; i < feature.size(); i++)
 	{
-		// cout << "ED " << stof(feature[i]) << " " << stof(r.getFeatureValue(i)) << "\n";
 		diff = stof(feature[i]) - stof(r.getFeatureValue(i));
 		diff = pow(diff, 2);
 		res = res + diff;
 
 	}
 	res = pow(res, 0.5);
-	// cout << "EDF " << res << "\n";
 	return res;
 }
 
-void Record::printRecord()
+void Record::printRecord() const
 {
 	for(int i = 0; i < feature.size(); i++)
 	{
 		cout << feature[i] << " ";
 	}
-	// cout << endl;
+	cout << endl;
+}
+
+void Record::setIndx(int i)
+{
+	idx = i;
 }

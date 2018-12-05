@@ -8,28 +8,31 @@ using namespace std;
 
 class Record
 {
-	private: int _variables;
-           int _nonNumericalVariables;
-           int _numericalVariables;
-           vector<string> _nonFeatureVector; 
-           vector<double> _featureVector;
-    			 float eucDis, normalVal;
+private:
+    vector<string> feature;
+    int idx;
+    float eucDis, normalVal;
+
 public:
-    Record(int y, int n, int n1):_variables(y), _nonNumericalVariables(n), _numericalVariables(n1) {}
-		Record(int, int, int, vector<string>,vector<double>);
+    Record();
+    Record(vector<string>);
     ~Record();
     Record(const Record&);
-		vector<double> getFeatureVector(){ return _featureVector; }
+
     string getFeatureValue(int);
     void setFeatureValue(string, int);
-		void setFeatureVector(vector<double> _newFeatureVector);
+    int getIndex() const;
+    void setIndex(int);
     void setNormal(float);
-    float getNormal();
+    float getNormal() const;
     float getEuc();
     void setEuc(float);
     int getSize();
     float euclideanDistance(Record, int);
-    void printRecord();
+    void setIndx(int);
+    void printRecord() const;
+
+    // friend bool operator < (const Record&, const Record&);
 };
 
 #endif

@@ -1,24 +1,97 @@
+#include <bits/stdc++.h>
 #include "Matrix.h"
 #include "Record.h"
-#include <bits/stdc++.h>
-#define INF 99999;
+#include "Comparator.h"
 
 using namespace std;
+
+float normalizeValue(float x, float min, float max);
+vector<string> parseLine(string line);
+Record createAvgRecord(vector<Record> recs, int t);
+
+int main()
+{
+    ifstream fin;
+    ofstream fout, finds;
+    fin.open("./datasheets/sample.csv");
+    fout.open("./outputs/task2.csv");
+    finds.open("./outputs/task2_indices.txt");
+    vector<Record> records;
+    string line;
+    getline(fin, line);
+    vector<string> titles = parseLine(line);
+    int count = 0;
+    while(fin)
+    {
+        getline(fin, line);
+        vector<string> lol = parseLine(line);
+        Record temp = Record(lol);
+        records.push_back(temp);
+        records[count].setIndx(count);
+        count++;
+    }
+    records.pop_back();
+
+    Record hypAvg = createAvgRecord(records, 4);
+    float max = INT_MAX;
+    float min = INT_MIN;
+
+    for(int i = 0; i < records.size(); i++)
+    {
+        float e = records[i].euclideanDistance(hypAvg, 4);
+        records[i].setEuc(e);
+        if(max <= e)    max = e;
+        if(min >= e)    min = e;
+    }
+
+    for(int i = 0; i < records.size(); i++)
+    {
+        float n = normalizeValue(records[i].getEuc(), min, max);
+        records[i].setNormal(n);
+    }
+
+    sort(records.begin(), records.end(), Compare());
+
+    vector<int> indices;
+
+    for(int i = 0; i < records.size(); i++)
+    {
+        indices.push_back(records[i].getIndex());
+    }
+    for(int i = 0; i < indices.size(); i++)
+    {
+        finds << indices[i] << ", ";
+    }
+    finds << "\n";
+    cout << "Indices after sorting Done!\n";
+
+    Matrix output = Matrix(records.size(), records.size());
+    for(int i = 0; i < records.size(); i++)
+    {
+        for(int j = i + 1; j < records.size(); j++)
+        {
+            if(i != j)
+            {
+                float f = records[i].euclideanDistance(records[j], 4);
+                output.setData(i, j, f);
+                output.setData(j, i, f);
+            }
+        }
+    }
+
+    fout << output;
+    cout << "Printing matrix Done!\n";
+    return 0;
+}
 
 float normalizeValue(float x, float min, float max)
 {
     return ((x - min)/(max - min));
 }
 
-bool compare(Record r1, Record r2)
-{
-    // cout << "#\n";
-    return r1.getNormal() >= r2.getNormal();
-}
-
 vector<string> parseLine(string line)
 {
-    stringstream str_strm(line);
+    stringstream str_strm(line );
     string temp;
     vector<string> res;
     char delim = ',';
@@ -49,74 +122,6 @@ Record createAvgRecord(vector<Record> recs, int thre)
         string s = to_string(avg);
         res.push_back(s);
     }
-    // res.pop_back();
 
     return Record(res);
-}
-int main()
-{
-    ifstream fin;
-    fin.open("./datasheets/sample.csv");
-    vector<Record> records;
-    string line,lin1;
-    getline(fin, line);
-    cout << "#\n";
-    line = line + "\n";
-    int count  = 0;
-    vector<string> titles = parseLine(line);
-    while(fin)
-    {
-        getline(fin, line);
-        line = line + "\n";
-        vector<string> lol = parseLine(line);
-        Record temp(lol);
-        records.push_back(lol);
-    }
-    records.pop_back();
-    Record hypAvg = createAvgRecord(records, 4);
-    float max = 0 - INF
-    float min = INF;
-    for(int i = 0; i < records.size(); i++)
-    {
-        float e = records[i].euclideanDistance(hypAvg, 4);
-        cout << e << endl;
-        records[i].setEuc(e);
-        if(max <= e)    max = e;
-        if(min >= e)    min = e;
-    }
-    cout << "# " << max << " " << min << endl;
-    for(int i = 0; i < records.size(); i++)
-    {
-        float n = normalizeValue(records[i].getEuc(), min, max);
-        cout << n << endl;
-        records[i].setNormal(n);
-    }
-
-    sort(records.begin(), records.end(), compare);
-
-    for(int i = 0; i < records.size(); i++)
-    {
-        cout << records[i].getEuc();
-        cout << endl;
-    }
-    /*
-    Matrix output = Matrix(records.size(), records.size());
-    for(int i = 0; i < records.size(); i++)
-    {
-        for(int j = i + 1; j < records.size(); j++)
-        {
-            // cout << ":" << i << " " << j << endl;
-            // if(i == j)  output.setData(i, j, 0);
-            if(i != j)
-            {
-                float f = records[i].euclideanDistance(records[j], 4);
-                output.setData(i, j, f);
-                output.setData(j, i, f);
-            }
-        }
-    }
-
-    // output.printMatrix();
-    */
-    return 0;
 }
