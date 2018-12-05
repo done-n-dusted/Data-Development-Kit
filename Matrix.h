@@ -18,19 +18,13 @@ public:
 
     void setData(int, int, float);
     void printMatrix();
+    int getNoRows();
+    int getNoCols();
     float getData(int, int);
+    void setData(int i , int j, int value);
 
     friend ostream& operator << (ostream& mos, Matrix &m);
 };
 
-
-class SquareMatrix : public Matrix
-{
-private:
-    int n;
-
-public:
-    SquareMatrix(int);
-};
 
 #endif
