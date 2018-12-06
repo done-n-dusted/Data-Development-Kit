@@ -15,7 +15,7 @@ class RCM_reordering{
 
     public:
         RCM_reordering(SymmetricMatrix _symSquareMatrix);
-        RCM_reordering(const SymmetricMatrix &matrix);
+        RCM_reordering(const RCM_reordering &matrix);
         // ~rcm_reordering();
         void sparsify();
         int max_degree();
