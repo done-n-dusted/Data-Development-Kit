@@ -92,7 +92,7 @@ public:
 
     vector<string> parseLine(string line)
     {
-        stringstream str_strm(line );
+        stringstream str_strm(line);
         string temp;
         vector<string> res;
         char delim = ',';
