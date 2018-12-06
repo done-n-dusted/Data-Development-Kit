@@ -26,5 +26,9 @@ public:
     friend ostream& operator << (ostream& mos, Matrix &m);
 };
 
-
+class SquareMatrix : public Matrix
+{
+public:
+    SquareMatrix(int n) : Matrix(n, n){};
+};
 #endif
