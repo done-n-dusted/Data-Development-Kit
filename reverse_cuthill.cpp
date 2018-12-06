@@ -6,7 +6,6 @@
 
 RCM_reordering::RCM_reordering(SquareMatrix m): _matrix(m){}
 
-
 //sparsifies the function to convert the matrix into a adjacency matrix
 void RCM_reordering::sparsify(){
     for(int i=0; i<_matrix.getNoRows(); i++){
@@ -31,6 +30,7 @@ vector<int> RCM_reordering::Degrees(){
         }
         degrees.push_back(count);
     }
+    return degrees;
 }
 
 //calcuate minimum index

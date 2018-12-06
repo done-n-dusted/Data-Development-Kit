@@ -12,9 +12,9 @@ private:
     float **data;
 
 public:
-    Matrix(int i, int j):nRows(i),nColumns(j){};
-    //~Matrix();
-    //Matrix(const Matrix&);
+    Matrix(int i, int j);
+    // ~Matrix();
+    Matrix(const Matrix&);
 
     void setData(int, int, float);
     void printMatrix();

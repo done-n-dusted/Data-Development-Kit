@@ -5,7 +5,7 @@
 #include"Matrix.h"
 #include"Record.h"
 #include<vector>
-#include"SymmetricMatrix.h"
+// #include"SymmetricMatrix.h"
 
 using namespace std;
 
