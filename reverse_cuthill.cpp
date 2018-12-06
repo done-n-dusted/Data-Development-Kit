@@ -4,16 +4,8 @@
 #include<vector>
 #include<bits/stdc++.h>
 
-RCM_reordering::RCM_reordering(SymmetricMatrix m): _matrix(m){}
+RCM_reordering::RCM_reordering(SquareMatrix m): _matrix(m){}
 
-//copy constructor
-RCM_reordering::RCM_reordering(RCM_reordering &other_matrix){
-    for(int i=0; i<other_matrix.getNoRows(); i++){
-        for(int j=0; i<other_matrix.getNoCols(); j++){
-            _matrix.setData(i, j, other_matrix.getData(i, j));
-        }
-    }
-}
 
 //sparsifies the function to convert the matrix into a adjacency matrix
 void RCM_reordering::sparsify(){
@@ -110,5 +102,6 @@ vector<int> RCM_reordering::reverse_cuthill(){
         }
     }
     return R;
-}   
+}
+   
 

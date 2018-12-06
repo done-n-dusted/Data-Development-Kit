@@ -11,10 +11,10 @@ using namespace std;
 
 class RCM_reordering{
     private:
-        SymmetricMatrix _matrix;
+        SquareMatrix _matrix;
 
     public:
-        RCM_reordering(SymmetricMatrix _symSquareMatrix);
+        RCM_reordering(SquareMatrix _symSquareMatrix);
         RCM_reordering(const RCM_reordering &matrix);
         // ~rcm_reordering();
         void sparsify();
