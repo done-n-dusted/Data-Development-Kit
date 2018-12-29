@@ -1,25 +1,12 @@
-#ifndef SYMMETRIC_MATRIX_H
-#define SYMMETRIC_MATRIX_H_
-
-
-#include "DataMatrix.h"
-
+#ifndef SYMMETRICMATRIX_H
+#define SYMMETRICMATRIX_H
 #include "Matrix.h"
+#include<iostream>
 
+using namespace  std;
 
-//Inheriting from Matrix//
-class SymmetricMatrix : public DataMatrix {
-    private: 
-
-    public: SymmetricMatrix(int M): DataMatrix(M,M){}//Calling Constructor of Matrix//
-
-    
-    public: 
-            SymmetricMatrix(int M): Matrix(M, M){}//Calling Constructor of Matrix//
-
-            // SymmetricMatrix(const SymmetricMatrix&);
-            // ~SymmetricMatrix();
-            double get_matrix_element(int i,int j);
+class symmetricMatrix:public Matrix{
+    public:
+        symmetricMatrix(int M):Matrix(M,M){};
 };
-
 #endif

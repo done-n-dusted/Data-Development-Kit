@@ -5,7 +5,7 @@
 
 Matrix::Matrix(int r, int c)
 {
-	cout << r << " " << c << endl;
+//	cout << r << " " << c << endl;
 	nRows = r;
 	nColumns = c;
 	data = new float*[nRows];
